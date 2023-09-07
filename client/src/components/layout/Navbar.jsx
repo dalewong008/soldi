@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const Navbar = (props) => {
-  console.log(props.transparent);
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   return (
     <nav
       className={
         (props.transparent
           ? 'top-0 absolute z-50 w-full'
-          : 'relative shadow-lg bg-white shadow-lg') +
+          : 'relative bg-white shadow-lg') +
         ' flex flex-wrap items-center justify-between px-2 py-3 '
       }
     >
@@ -20,7 +20,7 @@ const Navbar = (props) => {
               (props.transparent ? 'text-white' : 'text-gray-800') +
               ' text-4xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase'
             }
-            href='#'
+            href='/'
           >
             SOLDI
           </a>
@@ -45,19 +45,43 @@ const Navbar = (props) => {
           id='example-navbar-warning'
         >
           <ul className='flex flex-col lg:flex-row list-none lg:ml-auto'>
+            <li className='flex items-center justify-center'>
+              <Link to='/'>
+                <button className='uppercase px-4 py-2 text-xl text-gray-200'>
+                  Home
+                </button>
+              </Link>
+            </li>
+            <li className='flex items-center justify-center'>
+              <button className='uppercase px-4 py-2 text-xl text-gray-200'>
+                About
+              </button>
+            </li>
+            <li className='flex items-center justify-center'>
+              <button className='uppercase px-4 py-2 text-xl text-gray-200'>
+                FAQ
+              </button>
+            </li>
+            <li className='flex items-center justify-center'>
+              <button className='uppercase px-4 py-2 text-xl text-gray-200'>
+                Contact
+              </button>
+            </li>
+
             <li className='flex items-center'>
-              <button
+              <Link
                 className={
                   (props.transparent
                     ? 'bg-white text-gray-800 active:bg-gray-100'
                     : 'bg-pink-500 text-white active:bg-pink-600') +
                   ' text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3'
                 }
+                to='/login'
                 type='button'
                 style={{ transition: 'all .15s ease' }}
               >
-                <i className='fas fa-arrow-alt-circle-down'></i> SignIn
-              </button>
+                <i className='fas fa-arrow-alt-circle-right'></i> SignIn
+              </Link>
             </li>
           </ul>
         </div>
