@@ -47,25 +47,31 @@ const Navbar = (props) => {
           <ul className='flex flex-col lg:flex-row list-none lg:ml-auto'>
             <li className='flex items-center justify-center'>
               <Link to='/'>
-                <button className='uppercase px-4 py-2 text-xl text-gray-200'>
+                <button className='uppercase px-4 py-2 text-auto font-bold text-gray-200'>
                   Home
                 </button>
               </Link>
             </li>
             <li className='flex items-center justify-center'>
-              <button className='uppercase px-4 py-2 text-xl text-gray-200'>
-                About
-              </button>
+              <Link to='/about'>
+                <button className='uppercase px-4 py-2 text-auto font-bold text-gray-200'>
+                  About
+                </button>
+              </Link>
             </li>
             <li className='flex items-center justify-center'>
-              <button className='uppercase px-4 py-2 text-xl text-gray-200'>
-                FAQ
-              </button>
+              <Link to='/faq'>
+                <button className='uppercase px-4 py-2 text-auto font-bold text-gray-200'>
+                  FAQ
+                </button>
+              </Link>
             </li>
             <li className='flex items-center justify-center'>
-              <button className='uppercase px-4 py-2 text-xl text-gray-200'>
-                Contact
-              </button>
+              <Link to='/contact'>
+                <button className='uppercase px-4 py-2 text-auto font-bold text-gray-200'>
+                  Contact
+                </button>
+              </Link>
             </li>
 
             <li className='flex items-center'>

@@ -153,10 +153,10 @@ export default function Landing() {
                         className='text-pink-600 fill-current'
                       ></polygon>
                     </svg>
-                    <h4 className='text-xl font-bold text-white'>
+                    <h4 className='text-xl font-bold text-gray-800'>
                       Top Notch Services
                     </h4>
-                    <p className='text-md font-light mt-2 text-white'>
+                    <p className='text-md font-light mt-2 text-gray-800'>
                       The Arctic Ocean freezes every winter and much of the
                       sea-ice then thaws every summer, and that process will
                       continue whatever happens.
