@@ -5,17 +5,9 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
   },
-  address: {
-    type: [String],
-    default: [],
-  },
   date: {
     type: Date,
     default: Date.now,
-  },
-  experience: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'experience',
   },
 });
 

@@ -6,10 +6,10 @@ const { check, validationResult } = require('express-validator');
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
 
-// @9    GET api/profile/me
+// @route    GET api/profile/
 // @desc     Get current users profile
 // @access   Private
-router.get('/me', auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
       user: req.user.id,

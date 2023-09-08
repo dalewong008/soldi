@@ -7,6 +7,7 @@ const { check, validationResult } = require('express-validator');
 
 const auth = require('../../middleware/auth');
 const User = require('../../models/User');
+const Profile = require('../../models/Profile');
 
 // @route   GET api/auth
 // @desc    Protected route (check if the user exists)
@@ -119,8 +120,12 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
 
-      // save user in data base
+      // save user to database
       await user.save();
+
+      // save profile to database
+      const profile = await Profile({ user: user._id });
+      await profile.save();
 
       // return webtoken from user
       const payload = {
