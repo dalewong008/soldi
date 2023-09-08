@@ -1,9 +1,58 @@
-import { Link } from 'react-router-dom';
-
+import { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import Navbar from '../layout/Navbar';
 import FooterSmall from '../layout/FooterSmall';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../../actions/auth';
 
 export default function Login() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const [errors, setErrors] = useState({});
+
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
+  const { email, password } = formData;
+  console.log(email, password);
+
+  const validateForm = () => {
+    console.log('___________________');
+    let errors = {};
+    if (!email) {
+      errors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = 'Invalid email address';
+    }
+    if (!password) {
+      errors.password = 'Password is required';
+    } else if (password.length < 6) {
+      errors.password = 'Password must be at least 6 characters long';
+    }
+    console.log(errors);
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+  console.log(errors);
+
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      dispatch(login(formData));
+    }
+  };
+
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' />;
+  }
+
   return (
     <>
       <Navbar transparent />
@@ -24,8 +73,8 @@ export default function Login() {
                     <div className='text-gray-800 text-center text-xl mt-4 mb-3 font-bold'>
                       Sign In
                     </div>
-                    <form>
-                      <div className='relative w-full mb-3 z-10'>
+                    <form onSubmit={onSubmit}>
+                      <div className='relative w-full mb-3'>
                         <label
                           className='block uppercase text-gray-700 text-xs font-bold mb-2'
                           htmlFor='grid-password'
@@ -34,10 +83,18 @@ export default function Login() {
                         </label>
                         <input
                           type='email'
+                          name='email'
+                          value={email}
+                          onChange={onChange}
                           className='border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full'
                           placeholder='Email'
                           style={{ transition: 'all .15s ease' }}
                         />
+                        {errors.email && (
+                          <span className='text-red-700 mt-2 mx-2 text-sm'>
+                            {errors.email}
+                          </span>
+                        )}
                       </div>
 
                       <div className='relative w-full mb-3'>
@@ -49,10 +106,18 @@ export default function Login() {
                         </label>
                         <input
                           type='password'
+                          name='password'
+                          value={password}
+                          onChange={onChange}
                           className='border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full'
                           placeholder='Password'
                           style={{ transition: 'all .15s ease' }}
                         />
+                        {errors.password && (
+                          <span className='text-red-700 mt-2 mx-2 text-sm'>
+                            {errors.password}
+                          </span>
+                        )}
                       </div>
                       <div>
                         <label className='inline-flex items-center cursor-pointer'>
@@ -71,7 +136,7 @@ export default function Login() {
                       <div className='text-center mt-6'>
                         <button
                           className='bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
-                          type='button'
+                          type='submit'
                           style={{ transition: 'all .15s ease' }}
                         >
                           Sign In
@@ -80,21 +145,10 @@ export default function Login() {
                     </form>
                   </div>
                 </div>
-                <div className='flex flex-wrap mt-6'>
-                  <div className='w-1/2'>
-                    <a
-                      href='#pablo'
-                      onClick={(e) => e.preventDefault()}
-                      className='text-gray-300'
-                    >
-                      <small>Forgot password?</small>
-                    </a>
-                  </div>
-                  <div className='w-1/2 text-right'>
-                    <Link to='/register' className='text-gray-300 z-10'>
-                      <small>Create new account</small>
-                    </Link>
-                  </div>
+                <div className='flex flex-wrap justify-end'>
+                  <Link to='/register' className='text-gray-300'>
+                    <small>Create new account</small>
+                  </Link>
                 </div>
               </div>
             </div>

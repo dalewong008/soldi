@@ -17,8 +17,11 @@ function auth(state = initialState, action) {
   switch (type) {
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
+      console.log(payload);
+      localStorage.setItem('token', payload.token);
+      console.log('localstorage token => ', localStorage.getItem('token'));
       return {
-        token: payload,
+        token: payload.token,
         isAuthenticated: true,
       };
     case REGISTER_FAIL:

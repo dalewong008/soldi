@@ -14,7 +14,7 @@ function profile(state = initialState, action) {
     case PROFILE_LOAD_SUCCESS:
     case PROFILE_UPDATE_SUCCESS:
       return {
-        profile: payload,
+        ...payload,
       };
     case PROFILE_LOAD_FAIL:
     case PROFILE_UPDATE_FAIL:

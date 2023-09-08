@@ -8,6 +8,7 @@ import {
 } from './types';
 import { loadProfile } from './profile';
 import { setAlert } from './alert';
+import { startLoading, endLoading } from './loading';
 
 /*
   NOTE: we don't need a config object for axios as the
@@ -19,15 +20,20 @@ import { setAlert } from './alert';
 // Register User
 export const register = (formData) => async (dispatch) => {
   try {
+    dispatch(startLoading());
+
     const res = await api.post('/auth/register', formData);
 
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+
     dispatch(loadProfile());
   } catch (err) {
     const errors = err.response.data.errors;
+
+    dispatch(endLoading());
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
@@ -40,10 +46,9 @@ export const register = (formData) => async (dispatch) => {
 };
 
 // Login User
-export const login = (email, password) => async (dispatch) => {
-  const formData = { email, password };
-
+export const login = (formData) => async (dispatch) => {
   try {
+    dispatch(startLoading());
     const res = await api.post('/auth/login', formData);
 
     dispatch({
@@ -54,6 +59,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch(loadProfile());
   } catch (err) {
     const errors = err.response.data.errors;
+    dispatch(endLoading());
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
