@@ -1,102 +1,76 @@
-const Table = () => {
-  <div className='block w-full overflow-x-auto'>
-    {/* Projects table */}
-    <table className='items-center w-full bg-transparent border-collapse'>
-      <thead>
-        <tr>
-          <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>
-            Page name
+/* eslint-disable react/prop-types */
+import { deleteUser } from "../../actions/user";
+import { useDispatch } from "react-redux";
+
+const Table = ({ columns, data }) => {
+  const dispatch = useDispatch();
+  const onDelete = (id) => {
+    console.log(id);
+    dispatch(deleteUser(id));
+  };
+
+  const renderColumns = () => (
+    <thead>
+      <tr>
+        {columns.map((item, index) => (
+          <th
+            key={index}
+            className={
+              'px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl border-l-0 border-r-0 whitespace-nowrap font-semibold' +
+              (index == 0 && ' text-left')
+            }
+          >
+            {item}
           </th>
-          <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>
-            Visitors
-          </th>
-          <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>
-            Unique users
-          </th>
-          <th className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>
-            Bounce rate
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>
-            /argon/
-          </th>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            4,569
+        ))}
+      </tr>
+    </thead>
+  );
+
+  const renderData = () => (
+    <tbody>
+      {data.map((row) => (
+        <tr key={row._id}>
+          <td
+            className={
+              'border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-left'
+            }
+          >
+            {row.name}
           </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            340
+          <td
+            className={
+              'border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-center'
+            }
+          >
+            {row.email}
           </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            <i className='fas fa-arrow-up text-emerald-500 mr-4'></i>
-            46,53%
-          </td>
-        </tr>
-        <tr>
-          <th className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>
-            /argon/index.html
-          </th>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            3,985
-          </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            319
-          </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            <i className='fas fa-arrow-down text-orange-500 mr-4'></i>
-            46,53%
-          </td>
-        </tr>
-        <tr>
-          <th className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>
-            /argon/charts.html
-          </th>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            3,513
-          </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            294
-          </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            <i className='fas fa-arrow-down text-orange-500 mr-4'></i>
-            36,49%
+          <td
+            className={
+              'border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-center'
+            }
+          >
+            <button
+              className='bg-pink-500 px-6 py-2 align-middle whitespace-nowrap rounded-md text-white'
+              onClick={() => onDelete(row._id)}
+            >
+              Delete
+            </button>
           </td>
         </tr>
-        <tr>
-          <th className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>
-            /argon/tables.html
-          </th>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            2,050
-          </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            147
-          </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            <i className='fas fa-arrow-up text-emerald-500 mr-4'></i>
-            50,87%
-          </td>
-        </tr>
-        <tr>
-          <th className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left'>
-            /argon/profile.html
-          </th>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            1,795
-          </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            190
-          </td>
-          <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4'>
-            <i className='fas fa-arrow-down text-red-500 mr-4'></i>
-            46,53%
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>;
+      ))}
+    </tbody>
+  );
+
+  return (
+    <div className='block w-full overflow-x-auto'>
+      {/* Projects table */}
+      <table className='items-center w-full bg-transparent border-collapse'>
+        {renderColumns()}
+        {renderData()}
+      </table>
+    </div>
+  );
 };
 
 export default Table;

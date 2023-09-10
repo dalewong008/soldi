@@ -3,14 +3,14 @@ import loading from './loading';
 import auth from './auth';
 import profile from './profile';
 import alert from './alert';
-import user from './user';
+import users from './user';
 
 const combine = combineReducers({
   loading,
   auth,
   profile,
   alert,
-  user,
+  users,
 });
 
 export default combine;

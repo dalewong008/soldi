@@ -5,33 +5,39 @@ import {
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL,
 } from './types';
+import { startLoading, endLoading } from './loading';
 
 export const loadUsers = () => async (dispatch) => {
   try {
+    dispatch(startLoading);
     const res = await api.get('/users');
 
     dispatch({
       type: USERS_LOAD_SUCCESS,
       payload: res.data,
     });
+    dispatch(endLoading());
   } catch (err) {
     dispatch({
       type: USERS_LOAD_FAIL,
     });
+    dispatch(endLoading());
   }
 };
 
 export const deleteUser = (id) => async (dispatch) => {
   try {
-    const res = await api.post('/profile', id);
+    dispatch(startLoading());
+    await api.delete(`/users/delete/${id}`);
 
     dispatch({
       type: USER_DELETE_SUCCESS,
-      payload: res.data,
     });
+    dispatch(loadUsers());
   } catch (err) {
     dispatch({
       type: USER_DELETE_FAIL,
     });
+    dispatch(endLoading());
   }
 };

@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 const Spinner = () => {
   const { loading } = useSelector((state) => state.loading);
-  console.log(loading);
 
   if (!loading) return null;
   return (

@@ -15,10 +15,8 @@ export default function Login() {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   const { email, password } = formData;
-  console.log(email, password);
 
   const validateForm = () => {
-    console.log('___________________');
     let errors = {};
     if (!email) {
       errors.email = 'Email is required';
@@ -30,11 +28,9 @@ export default function Login() {
     } else if (password.length < 6) {
       errors.password = 'Password must be at least 6 characters long';
     }
-    console.log(errors);
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
-  console.log(errors);
 
   const dispatch = useDispatch();
 
@@ -67,7 +63,7 @@ export default function Login() {
           ></div>
           <div className='container mx-auto px-4 h-full'>
             <div className='flex content-center items-center justify-center h-full'>
-              <div className='w-full lg:w-4/12 px-4'>
+              <div className='w-full lg:w-6/12 xl:w-4/12 px-4'>
                 <div className='relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-300 border-0'>
                   <div className='flex-auto px-4 lg:px-10 py-10 pt-0'>
                     <div className='text-gray-800 text-center text-xl mt-4 mb-3 font-bold'>

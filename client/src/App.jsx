@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 import PrivateRoute from './components/common/PrivateRoute';
-import Landing from './components/landing';
+import Landing from './components/landing/Landing';
+import Dashboard from './components/dashboard/Dashboard';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Spinner from './components/common/Spinner';
-import Dashboard from './components/Dashboard';
 
 import { loadProfile } from './actions/profile';
 
@@ -19,7 +19,7 @@ function App() {
     if (isAuthenticated) {
       dispatch(loadProfile());
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, dispatch]);
 
   return (
     <>
