@@ -13,6 +13,10 @@ const Navbar = (props) => {
     dispatch(logout());
   };
 
+  const goToContact = () => {
+    window.scrollTo(0, 2600);
+  };
+
   return (
     <nav
       className={
@@ -71,8 +75,8 @@ const Navbar = (props) => {
                   </Link>
                 </li>
                 <li className='flex items-center justify-center'>
-                  <Link to='/#'>
-                    <button
+                  <Link to='/about'>
+                    <div
                       className={
                         (props.transparent
                           ? 'text-gray-200 '
@@ -81,11 +85,11 @@ const Navbar = (props) => {
                       }
                     >
                       About
-                    </button>
+                    </div>
                   </Link>
                 </li>
                 <li className='flex items-center justify-center'>
-                  <Link to='/#'>
+                  <Link to='/faq'>
                     <button
                       className={
                         (props.transparent
@@ -99,8 +103,9 @@ const Navbar = (props) => {
                   </Link>
                 </li>
                 <li className='flex items-center justify-center'>
-                  <Link to='/#'>
+                  <Link to='/'>
                     <button
+                      onClick={goToContact}
                       className={
                         (props.transparent
                           ? 'text-gray-200 '
